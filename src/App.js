@@ -1,0 +1,432 @@
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, Brain, TrendingUp, Users, Scale, Clock, AlertTriangle, Sparkles } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar } from 'recharts';
+
+const Presentation = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const corruptionData = [
+    { country: 'Denmark', score: 90, type: 'Democracy' },
+    { country: 'New Zealand', score: 87, type: 'Democracy' },
+    { country: 'Singapore', score: 85, type: 'Hybrid' },
+    { country: 'USA', score: 69, type: 'Democracy' },
+    { country: 'India', score: 40, type: 'Democracy' },
+    { country: 'AI System', score: 98, type: 'Theoretical' }
+  ];
+
+  const decisionSpeedData = [
+    { process: 'Infrastructure Bill', democracy: 2400, ai: 72 },
+    { process: 'Budget Approval', democracy: 720, ai: 24 },
+    { process: 'Emergency Response', democracy: 168, ai: 1 },
+    { process: 'Policy Analysis', democracy: 1440, ai: 6 }
+  ];
+
+  const costData = [
+    { name: 'Elections', value: 35 },
+    { name: 'Lobbying', value: 28 },
+    { name: 'Admin Overhead', value: 22 },
+    { name: 'Policy Delays', value: 15 }
+  ];
+
+  const COLORS = ['#ef4444', '#f97316', '#f59e0b', '#eab308'];
+
+  const efficiencyComparison = [
+    { metric: 'Speed', democracy: 40, ai: 95 },
+    { metric: 'Consistency', democracy: 55, ai: 98 },
+    { metric: 'Data Analysis', democracy: 45, ai: 99 },
+    { metric: 'Bias Resistance', democracy: 50, ai: 85 },
+    { metric: 'Adaptability', democracy: 60, ai: 90 }
+  ];
+
+  const slides = [
+    // Slide 1: Title
+    {
+      title: "The Democracy Paradox",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          <div className="text-center space-y-4">
+            <h1 className="text-6xl font-bold bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+              Ban Democracy?
+            </h1>
+            <h2 className="text-4xl font-light text-gray-300">
+              Replace with AI Governance
+            </h2>
+          </div>
+          <div className="flex items-center gap-8 mt-12">
+            <Users className="w-24 h-24 text-gray-500 opacity-50" />
+            <div className="text-6xl text-gray-600">→</div>
+            <Brain className="w-24 h-24 text-blue-400 animate-pulse" />
+          </div>
+          <p className="text-xl text-gray-400 max-w-2xl text-center mt-8">
+            A thought experiment: What if the future of governance isn't human at all?
+          </p>
+        </div>
+      )
+    },
+
+    // Slide 2: The Problem
+    {
+      title: "The Corruption Crisis",
+      content: (
+        <div className="space-y-6">
+          <p className="text-xl text-gray-300 mb-8">
+            Global Corruption Perception Index: Can we trust human governance?
+          </p>
+          <ResponsiveContainer width="100%" height={400}>
+            <BarChart data={corruptionData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="country" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip 
+                contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151' }}
+                labelStyle={{ color: '#f3f4f6' }}
+              />
+              <Bar dataKey="score" fill="#3b82f6">
+                {corruptionData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.type === 'Theoretical' ? '#10b981' : '#3b82f6'} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+          <div className="bg-red-900/20 border border-red-700 rounded-lg p-4 mt-6">
+            <p className="text-red-300">
+              <strong>The Reality:</strong> Even the best democracies struggle with corruption, lobbying, and special interests. An AI system has no personal gain, no re-election concerns, no family to enrich.
+            </p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 3: Speed of Decision Making
+    {
+      title: "The Speed Problem",
+      content: (
+        <div className="space-y-6">
+          <p className="text-xl text-gray-300 mb-8">
+            Decision-Making Time (Hours): Democracy vs AI Governance
+          </p>
+          <ResponsiveContainer width="100%" height={350}>
+            <BarChart data={decisionSpeedData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="process" stroke="#9ca3af" angle={-20} textAnchor="end" height={80} />
+              <YAxis stroke="#9ca3af" label={{ value: 'Hours', angle: -90, position: 'insideLeft', fill: '#9ca3af' }} />
+              <Tooltip 
+                contentStyle={{ backgroundColor: '#1f2937', border: '1px solid #374151' }}
+                labelStyle={{ color: '#f3f4f6' }}
+              />
+              <Bar dataKey="democracy" fill="#ef4444" name="Democracy" />
+              <Bar dataKey="ai" fill="#10b981" name="AI System" />
+            </BarChart>
+          </ResponsiveContainer>
+          <div className="flex justify-center gap-8 mb-4">
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-red-500"></div>
+              <span className="text-gray-300">Democracy</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <div className="w-4 h-4 bg-green-500"></div>
+              <span className="text-gray-300">AI System</span>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            <div className="bg-red-900/20 border border-red-700 rounded-lg p-4">
+              <Clock className="w-8 h-8 text-red-400 mb-2" />
+              <h3 className="font-bold text-red-300">Democracy: Slow by Design</h3>
+              <p className="text-sm text-gray-400">Debates, committees, elections, gridlock</p>
+            </div>
+            <div className="bg-green-900/20 border border-green-700 rounded-lg p-4">
+              <Sparkles className="w-8 h-8 text-green-400 mb-2" />
+              <h3 className="font-bold text-green-300">AI: Instant Analysis</h3>
+              <p className="text-sm text-gray-400">Real-time data, immediate optimization</p>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 4: Cost Analysis
+    {
+      title: "The Hidden Costs of Democracy",
+      content: (
+        <div className="space-y-6">
+          <p className="text-xl text-gray-300 mb-8">
+            Annual Democratic System Costs: $450+ Billion (US alone)
+          </p>
+          <div className="flex items-center justify-center gap-8">
+            <ResponsiveContainer width="50%" height={400}>
+              <PieChart>
+                <Pie
+                  data={costData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                  outerRadius={120}
+                  fill="#8884d8"
+                  dataKey="value"
+                >
+                  {costData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+            <div className="space-y-4 w-1/3">
+              <div className="bg-blue-900/20 border border-blue-700 rounded-lg p-4">
+                <h3 className="font-bold text-blue-300 text-3xl">$14B</h3>
+                <p className="text-sm text-gray-400">2020 US Election Cost</p>
+              </div>
+              <div className="bg-purple-900/20 border border-purple-700 rounded-lg p-4">
+                <h3 className="font-bold text-purple-300 text-3xl">$9.5B</h3>
+                <p className="text-sm text-gray-400">Annual Lobbying Spending</p>
+              </div>
+              <div className="bg-green-900/20 border border-green-700 rounded-lg p-4">
+                <h3 className="font-bold text-green-300 text-3xl">95%</h3>
+                <p className="text-sm text-gray-400">Cost Reduction with AI</p>
+              </div>
+            </div>
+          </div>
+          <p className="text-center text-gray-400 mt-6 italic">
+            Imagine redirecting these resources to healthcare, education, and infrastructure
+          </p>
+        </div>
+      )
+    },
+
+    // Slide 5: Efficiency Comparison
+    {
+      title: "Performance Metrics",
+      content: (
+        <div className="space-y-6">
+          <p className="text-xl text-gray-300 mb-8">
+            Governance Performance: A Direct Comparison
+          </p>
+          <ResponsiveContainer width="100%" height={450}>
+            <RadarChart data={efficiencyComparison}>
+              <PolarGrid stroke="#374151" />
+              <PolarAngleAxis dataKey="metric" stroke="#9ca3af" />
+              <PolarRadiusAxis angle={90} domain={[0, 100]} stroke="#9ca3af" />
+              <Radar name="Democracy" dataKey="democracy" stroke="#ef4444" fill="#ef4444" fillOpacity={0.3} />
+              <Radar name="AI System" dataKey="ai" stroke="#10b981" fill="#10b981" fillOpacity={0.5} />
+              <Tooltip />
+            </RadarChart>
+          </ResponsiveContainer>
+          <div className="text-center text-gray-400 mt-4">
+            <p className="text-lg">AI systems excel at what democracies struggle with:</p>
+            <p className="text-sm mt-2">Consistent, data-driven decisions without emotional bias or political pressure</p>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 6: The Vision
+    {
+      title: "The AI Governance Model",
+      content: (
+        <div className="space-y-6">
+          <p className="text-xl text-gray-300 mb-6">
+            How Would It Actually Work?
+          </p>
+          <div className="grid grid-cols-2 gap-6">
+            <div className="bg-gradient-to-br from-blue-900/40 to-purple-900/40 border border-blue-700 rounded-lg p-6">
+              <TrendingUp className="w-10 h-10 text-blue-400 mb-3" />
+              <h3 className="text-xl font-bold text-blue-300 mb-2">Continuous Optimization</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Real-time economic monitoring</li>
+                <li>• Predictive policy adjustments</li>
+                <li>• Resource allocation based on data</li>
+                <li>• Immediate crisis response</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-green-900/40 to-emerald-900/40 border border-green-700 rounded-lg p-6">
+              <Scale className="w-10 h-10 text-green-400 mb-3" />
+              <h3 className="text-xl font-bold text-green-300 mb-2">Perfect Fairness</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• No favoritism or bias</li>
+                <li>• Evidence-based decisions only</li>
+                <li>• Equal treatment algorithms</li>
+                <li>• Transparent rule application</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-purple-900/40 to-pink-900/40 border border-purple-700 rounded-lg p-6">
+              <Brain className="w-10 h-10 text-purple-400 mb-3" />
+              <h3 className="text-xl font-bold text-purple-300 mb-2">Superhuman Intelligence</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• Process millions of data points</li>
+                <li>• Long-term strategic planning</li>
+                <li>• Complex system modeling</li>
+                <li>• Multi-variable optimization</li>
+              </ul>
+            </div>
+            <div className="bg-gradient-to-br from-orange-900/40 to-red-900/40 border border-orange-700 rounded-lg p-6">
+              <Sparkles className="w-10 h-10 text-orange-400 mb-3" />
+              <h3 className="text-xl font-bold text-orange-300 mb-2">Zero Corruption</h3>
+              <ul className="text-gray-300 space-y-2 text-sm">
+                <li>• No personal interests</li>
+                <li>• No lobbying influence</li>
+                <li>• No electoral pressures</li>
+                <li>• Pure optimization for welfare</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )
+    },
+
+    // Slide 7: The Counter-Arguments
+    {
+      title: "But Wait... The Concerns",
+      content: (
+        <div className="space-y-6">
+          <div className="bg-yellow-900/20 border-2 border-yellow-600 rounded-lg p-6">
+            <AlertTriangle className="w-12 h-12 text-yellow-400 mb-4 mx-auto" />
+            <h2 className="text-2xl font-bold text-yellow-300 text-center mb-6">
+              Critical Questions We Must Address
+            </h2>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-gray-800/50 rounded p-4">
+                <h3 className="font-bold text-red-400 mb-2">Who Controls the AI?</h3>
+                <p className="text-sm text-gray-300">Power concentration risk remains</p>
+              </div>
+              <div className="bg-gray-800/50 rounded p-4">
+                <h3 className="font-bold text-red-400 mb-2">Human Values</h3>
+                <p className="text-sm text-gray-300">Can AI truly understand human needs?</p>
+              </div>
+              <div className="bg-gray-800/50 rounded p-4">
+                <h3 className="font-bold text-red-400 mb-2">Accountability</h3>
+                <p className="text-sm text-gray-300">Who do we blame when AI fails?</p>
+              </div>
+              <div className="bg-gray-800/50 rounded p-4">
+                <h3 className="font-bold text-red-400 mb-2">Human Dignity</h3>
+                <p className="text-sm text-gray-300">Is self-governance a fundamental right?</p>
+              </div>
+              <div className="bg-gray-800/50 rounded p-4">
+                <h3 className="font-bold text-red-400 mb-2">Error Amplification</h3>
+                <p className="text-sm text-gray-300">Systemic AI bias could be catastrophic</p>
+              </div>
+              <div className="bg-gray-800/50 rounded p-4">
+                <h3 className="font-bold text-red-400 mb-2">Loss of Agency</h3>
+                <p className="text-sm text-gray-300">Do we surrender our political voice?</p>
+              </div>
+            </div>
+          </div>
+          <p className="text-center text-gray-400 italic text-lg mt-6">
+            Efficiency isn't everything. Democracy is messy because humans are complex.
+          </p>
+        </div>
+      )
+    },
+
+    // Slide 8: Conclusion
+    {
+      title: "The Real Question",
+      content: (
+        <div className="flex flex-col items-center justify-center h-full space-y-8">
+          <h2 className="text-4xl font-bold text-center text-gray-200 max-w-4xl">
+            It's Not About Choosing Between Democracy and AI
+          </h2>
+          <p className="text-2xl text-gray-400 text-center max-w-3xl">
+            It's about asking: How can we make governance better?
+          </p>
+          <div className="grid grid-cols-3 gap-6 mt-12">
+            <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-6 text-center">
+              <h3 className="font-bold text-blue-300 mb-2">Hybrid Models</h3>
+              <p className="text-sm text-gray-400">AI-assisted democracy</p>
+            </div>
+            <div className="bg-purple-900/30 border border-purple-700 rounded-lg p-6 text-center">
+              <h3 className="font-bold text-purple-300 mb-2">Transparency</h3>
+              <p className="text-sm text-gray-400">Open-source governance AI</p>
+            </div>
+            <div className="bg-green-900/30 border border-green-700 rounded-lg p-6 text-center">
+              <h3 className="font-bold text-green-300 mb-2">Human Oversight</h3>
+              <p className="text-sm text-gray-400">AI recommends, humans decide</p>
+            </div>
+          </div>
+          <div className="bg-gradient-to-r from-blue-900/40 via-purple-900/40 to-pink-900/40 border border-purple-700 rounded-lg p-8 mt-8 max-w-3xl">
+            <p className="text-xl text-gray-200 text-center">
+              Maybe the future isn't AI <span className="italic">or</span> democracy—
+              <br />
+              <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-400">
+                but democracy reimagined with AI
+              </span>
+            </p>
+          </div>
+        </div>
+      )
+    }
+  ];
+
+  const nextSlide = () => {
+    if (currentSlide < slides.length - 1) {
+      setCurrentSlide(currentSlide + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (currentSlide > 0) {
+      setCurrentSlide(currentSlide - 1);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white p-8">
+      <div className="max-w-7xl mx-auto">
+        {/* Slide Content */}
+        <div className="bg-gray-800/50 rounded-2xl shadow-2xl p-12 min-h-[700px] backdrop-blur-sm border border-gray-700">
+          <h2 className="text-3xl font-bold mb-8 text-blue-400">{slides[currentSlide].title}</h2>
+          <div className="h-[550px]">
+            {slides[currentSlide].content}
+          </div>
+        </div>
+
+        {/* Navigation */}
+        <div className="flex items-center justify-between mt-8">
+          <button
+            onClick={prevSlide}
+            disabled={currentSlide === 0}
+            className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
+              currentSlide === 0
+                ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+            }`}
+          >
+            <ChevronLeft className="w-5 h-5" />
+            Previous
+          </button>
+
+          <div className="flex items-center gap-2">
+            {slides.map((_, index) => (
+              <div
+                key={index}
+                className={`h-2 rounded-full transition-all ${
+                  index === currentSlide ? 'w-8 bg-blue-500' : 'w-2 bg-gray-600'
+                }`}
+              />
+            ))}
+          </div>
+
+          <button
+            onClick={nextSlide}
+            disabled={currentSlide === slides.length - 1}
+            className={`flex items-center gap-2 px-6 py-3 rounded-lg transition-all ${
+              currentSlide === slides.length - 1
+                ? 'bg-gray-700 text-gray-500 cursor-not-allowed'
+                : 'bg-blue-600 hover:bg-blue-700 text-white'
+            }`}
+          >
+            Next
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </div>
+
+        {/* Slide Counter */}
+        <div className="text-center mt-4 text-gray-500">
+          Slide {currentSlide + 1} of {slides.length}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Presentation;
